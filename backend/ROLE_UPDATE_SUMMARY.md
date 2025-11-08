@@ -99,7 +99,7 @@ TOKEN=$(curl -s -X POST "http://localhost:8000/api/v1/auth/login-json" \
   -d '{"username":"admin@macquiz.com","password":"admin123"}' | \
   grep -o '"access_token":"[^"]*' | cut -d'"' -f4)
 ```
-
+V
 ### 5. Test User Creation
 ```bash
 curl -X POST "http://localhost:8000/api/v1/users/" \
