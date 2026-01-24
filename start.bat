@@ -12,15 +12,21 @@ echo ========================================
 echo.
 
 REM Check if Python is installed
-python --version >nul 2>&1
+py --version >nul 2>&1
 if %errorlevel% neq 0 (
-    echo [ERROR] Python 3 is not installed
-    echo Please install Python 3.8 or higher from https://www.python.org/downloads/
-    pause
-    exit /b 1
+    python --version >nul 2>&1
+    if %errorlevel% neq 0 (
+        echo [ERROR] Python 3 is not installed
+        echo Please install Python 3.8 or higher from https://www.python.org/downloads/
+        pause
+        exit /b 1
+    )
+    set PYTHON_CMD=python
+) else (
+    set PYTHON_CMD=py
 )
 echo [OK] Python found
-python --version
+%PYTHON_CMD% --version
 
 REM Check if Node.js is installed
 node --version >nul 2>&1
@@ -47,7 +53,7 @@ cd backend
 REM Create virtual environment if it doesn't exist
 if not exist "venv" (
     echo Creating virtual environment...
-    python -m venv venv
+    %PYTHON_CMD% -m venv venv
     echo [OK] Virtual environment created
 )
 
